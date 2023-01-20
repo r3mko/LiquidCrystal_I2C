@@ -51,9 +51,12 @@
 #define Rw B00000010  // Read/Write bit
 #define Rs B00000001  // Register select bit
 
+#define LCD_SDA 255
+#define LCD_SCL 255
+
 class LiquidCrystal_I2C : public Print {
 public:
-  LiquidCrystal_I2C(uint8_t lcd_Addr, uint8_t lcd_cols, uint8_t lcd_rows, uint8_t lcd_sda, uint8_t lcd_scl);
+  LiquidCrystal_I2C(uint8_t lcd_Addr, uint8_t lcd_cols, uint8_t lcd_rows, uint8_t lcd_sda = LCD_SDA, uint8_t lcd_scl = LCD_SCL);
   void begin(uint8_t cols, uint8_t rows, uint8_t charsize = LCD_5x8DOTS );
   void clear();
   void home();
@@ -89,7 +92,7 @@ public:
   void init();
   void oled_init();
 
-////compatibility API function aliases
+/* compatibility API function aliases */
 void blink_on();						// alias for blink()
 void blink_off();       					// alias for noBlink()
 void cursor_on();      	 					// alias for cursor()
@@ -98,7 +101,7 @@ void setBacklight(uint8_t new_val);				// alias for backlight() and nobacklight(
 void load_custom_character(uint8_t char_num, uint8_t *rows);	// alias for createChar()
 void printstr(const char[]);
 
-////Unsupported API functions (not implemented in this library)
+/* Unsupported API functions (not implemented in this library) */
 uint8_t status();
 void setContrast(uint8_t new_val);
 uint8_t keypad();

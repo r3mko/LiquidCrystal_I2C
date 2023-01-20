@@ -65,7 +65,7 @@ void LiquidCrystal_I2C::init(){
 
 void LiquidCrystal_I2C::init_priv()
 {
-	if (_sdaPin != NULL) {
+	if ((_sdaPin != LCD_SDA) && (_sclPin != LCD_SCL)) {
 		Wire.begin(_sdaPin, _sclPin);
 	}
 	else {
