@@ -4,7 +4,7 @@
 #include <inttypes.h>
 #if defined(ARDUINO) && ARDUINO >= 100
 
-#include "Arduino.h"
+#include <Arduino.h>
 
 #define printIIC(args)  Wire.write(args)
 inline size_t LiquidCrystal_I2C::write(uint8_t value) {
@@ -22,7 +22,6 @@ inline void LiquidCrystal_I2C::write(uint8_t value) {
 
 #endif
 #include <Wire.h>
-
 
 
 // When the display powers up, it is configured as follows:
@@ -46,16 +45,16 @@ inline void LiquidCrystal_I2C::write(uint8_t value) {
 
 LiquidCrystal_I2C::LiquidCrystal_I2C(uint8_t lcd_Addr,uint8_t lcd_cols, uint8_t lcd_rows, uint8_t lcd_sda, uint8_t lcd_scl)
 {
-	_Addr = lcd_Addr;
-	_cols = lcd_cols;
-	_rows = lcd_rows;
-	_sdaPin = lcd_sda;
-	_sclPin = lcd_scl;
-	_backlightval = LCD_BACKLIGHT;
+    _Addr = lcd_Addr;
+    _cols = lcd_cols;
+    _rows = lcd_rows;
+    _sdaPin = lcd_sda;
+    _sclPin = lcd_scl;
+    _backlightval = LCD_BACKLIGHT;
 }
 
 void LiquidCrystal_I2C::oled_init(){
-  	_oled = true;
+    _oled = true;
     init_priv();
 }
 
@@ -65,12 +64,12 @@ void LiquidCrystal_I2C::init(){
 
 void LiquidCrystal_I2C::init_priv()
 {
-	if ((_sdaPin != LCD_SDA) && (_sclPin != LCD_SCL)) {
-		Wire.begin(_sdaPin, _sclPin);
-	}
-	else {
-		Wire.begin();
-	}
+    if ((_sdaPin != LCD_SDA) && (_sclPin != LCD_SCL)) {
+        Wire.begin(_sdaPin, _sclPin);
+    }
+    else {
+        Wire.begin();
+    }
     _displayfunction = LCD_4BITMODE | LCD_1LINE | LCD_5x8DOTS;
     begin(_cols, _rows);  
 }
@@ -100,19 +99,19 @@ void LiquidCrystal_I2C::begin(uint8_t cols, uint8_t lines, uint8_t dotsize) {
     // figure 24, pg 46
     
     // we start in 8bit mode, try to set 4 bit mode
-	write4bits(0x03 << 4);
-	delayMicroseconds(4500); // wait min 4.1ms
+    write4bits(0x03 << 4);
+    delayMicroseconds(4500); // wait min 4.1ms
    
-	// second try
-	write4bits(0x03 << 4);
-	delayMicroseconds(4500); // wait min 4.1ms
+    // second try
+    write4bits(0x03 << 4);
+    delayMicroseconds(4500); // wait min 4.1ms
    
-	// third go!
-	write4bits(0x03 << 4); 
-	delayMicroseconds(150);
+    // third go!
+    write4bits(0x03 << 4); 
+    delayMicroseconds(150);
    
-	// finally, set to 4-bit interface
-	write4bits(0x02 << 4); 
+    // finally, set to 4-bit interface
+    write4bits(0x02 << 4); 
 
 
     // set # lines, font size, etc.
@@ -136,12 +135,13 @@ void LiquidCrystal_I2C::begin(uint8_t cols, uint8_t lines, uint8_t dotsize) {
 }
 
 /* High level commands, for the user! */
+
 void LiquidCrystal_I2C::clear(){
     command(LCD_CLEARDISPLAY);// clear display, set cursor position to zero
     delayMicroseconds(2000);  // this command takes a long time!
-  	if (_oled) {
-		setCursor(0,0);
-	}
+    if (_oled) {
+        setCursor(0,0);
+    }
 }
 
 void LiquidCrystal_I2C::home(){
@@ -250,7 +250,6 @@ void LiquidCrystal_I2C::backlight(void) {
 }
 
 
-
 /* Mid level commands, for sending data/cmds */
 
 inline void LiquidCrystal_I2C::command(uint8_t value) {
@@ -289,7 +288,6 @@ void LiquidCrystal_I2C::pulseEnable(uint8_t _data){
 
 
 // Alias functions
-
 void LiquidCrystal_I2C::cursor_on(){
     cursor();
 }
