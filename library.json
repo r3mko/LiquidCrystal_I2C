@@ -1,17 +1,11 @@
 {
-  "name": "LiquidCrystal_I2C",
+  "name": "LiquidCrystal_I2C-Display",
+  "description": "Library for LCD displays with the I2C interfacae.",
   "keywords": "LCD, liquidcrystal, I2C",
-  "description": "A library for I2C LCD displays",
-  "repository":
-  {
+  "version": "1.0.0",
+  "repository": {
     "type": "git",
     "url": "https://github.com/r3mko/LiquidCrystal_I2C"
   },
-  "frameworks": "arduino",
-  "platforms":
-  [
-    "atmelavr",
-    "espressif8266",
-    "espressif32"
-  ]
+  "platforms": ["atmelavr", "espressif8266", "espressif32"]
 }
