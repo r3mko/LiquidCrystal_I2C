@@ -63,7 +63,7 @@ public:
   void begin(uint8_t cols, uint8_t rows, uint8_t dotsize = LCD_5x8DOTS );
   void clear();
   void home();
-  void setCursor(uint8_t, uint8_t); 
+  void setCursor(uint8_t col, uint8_t row); 
   void noDisplay();
   void display();
   void noCursor();
@@ -80,8 +80,8 @@ public:
   void createChar(uint8_t location, const char *charmap); // Example: const char bell[8] PROGMEM = {B00100,B01110,B01110,B01110,B11111,B00000,B00100,B00000}; 
   void noBacklight();
   void backlight();
-  void command(uint8_t);
-  virtual size_t write(uint8_t);
+  void command(uint8_t value);
+  virtual size_t write(uint8_t value);
 
 /* Compatibility API function aliases */
 
@@ -91,13 +91,13 @@ void blink_on(); // Alias for blink()
 void blink_off(); // Alias for noBlink()
 void load_custom_character(uint8_t char_num, uint8_t *rows); // Alias for createChar()
 void setBacklight(uint8_t new_val); // Alias for backlight() and nobacklight()
-void printstr(const char[]);
+void printstr(const char c[]);
 
 /* Unsupported API functions (not implemented in this library) */
 
 void off();
 void on();
-void setDelay(int, int);
+void setDelay(int cmdDelay, int charDelay);
 uint8_t status();
 uint8_t keypad();
 uint8_t init_bargraph(uint8_t graphtype);
@@ -107,21 +107,21 @@ void setContrast(uint8_t new_val);
 	 
 private:
   void init_priv();
-  void send(uint8_t, uint8_t);
-  void write4bits(uint8_t);
-  void expanderWrite(uint8_t);
-  void pulseEnable(uint8_t);
+  void send(uint8_t value, uint8_t mode);
+  void write4bits(uint8_t value);
+  void expanderWrite(uint8_t _data);
+  void pulseEnable(uint8_t _data);
   uint8_t _Addr;
-  uint8_t _displayfunction;
-  uint8_t _displaycontrol;
-  uint8_t _displaymode;
-  uint8_t _numlines;
-  bool _oled = false;
   uint8_t _cols;
   uint8_t _rows;
   uint8_t _sdaPin;
   uint8_t _sclPin;
   uint8_t _backlightval;
+  bool _oled = false;
+  uint8_t _displayfunction;
+  uint8_t _numlines;
+  uint8_t _displaycontrol;
+  uint8_t _displaymode;
 };
 
 #endif
