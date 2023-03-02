@@ -81,7 +81,7 @@ public:
   void noBacklight();
   void backlight();
   void command(uint8_t);
-  size_t write(uint8_t);
+  virtual size_t write(uint8_t);
 
 /* Compatibility API function aliases */
 
