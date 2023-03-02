@@ -1,26 +1,20 @@
-//YWROBOT
-//Compatible with the Arduino IDE 1.0
-//Library version:1.1
 #include <LiquidCrystal_I2C.h>
 
-LiquidCrystal_I2C lcd(0x27,20,4);  // set the LCD address to 0x27 for a 16 chars and 2 line display
+// The LCD display is connected to D1/GPIO5 (SCL) and D2/GPIO4 (SDA)
+// Set the LCD address to 0x27 for a 16 chars and 2 line display
+LiquidCrystal_I2C lcd(0x27, 16, 2);
 
-void setup()
-{
-  lcd.init();                      // initialize the lcd 
-  // Print a message to the LCD.
-  lcd.backlight();
-  lcd.setCursor(3,0);
-  lcd.print("Hello, world!");
-  lcd.setCursor(2,1);
-  lcd.print("Ywrobot Arduino!");
-   lcd.setCursor(0,2);
-  lcd.print("Arduino LCM IIC 2004");
-   lcd.setCursor(2,3);
-  lcd.print("Power By Ec-yuan!");
+void setup() {
+  Serial.begin(9600);
+
+  lcd.init();
 }
 
+void loop() {
+  lcd.clear();
+  lcd.setCursor(2, 0);
 
-void loop()
-{
+  lcd.print("Hello world!");
+
+  delay(1000);
 }
