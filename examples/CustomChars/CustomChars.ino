@@ -28,8 +28,8 @@ void setup() {
   lcd.createChar(5, check);
   lcd.createChar(6, cross);
   lcd.createChar(7, retarrow);
-  lcd.home();
-  
+
+  lcd.home(); 
   lcd.print("Hello world...");
 
   lcd.setCursor(0, 1);
@@ -47,14 +47,16 @@ void displayKeyCodes() {
   while (1) {
     lcd.clear();
 
+    // Print HEX codes
     lcd.print("Codes 0x");
     lcd.print(i, HEX);
     lcd.print("-0x");
-    lcd.print(i+16, HEX);
+    lcd.print(i + 15, HEX);
 
+    // Print Characters
     lcd.setCursor(0, 1);
     for (int j=0; j<16; j++) {
-      lcd.printByte(i+j);
+      lcd.printByte(i + j);
     }
     i += 16;
     
