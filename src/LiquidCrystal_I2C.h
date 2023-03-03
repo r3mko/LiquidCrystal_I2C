@@ -91,7 +91,7 @@ void blink_on(); // Alias for blink()
 void blink_off(); // Alias for noBlink()
 void load_custom_character(uint8_t char_num, uint8_t *rows); // Alias for createChar()
 void setBacklight(uint8_t new_val); // Alias for backlight() and nobacklight()
-void printstr(const char c[]);
+void printstr(const char c[]); // For backward compatibility
 
 /* Unsupported API functions (not implemented in this library) */
 
