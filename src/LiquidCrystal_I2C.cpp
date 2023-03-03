@@ -50,14 +50,14 @@ void LiquidCrystal_I2C::init_priv() {
     begin(_cols, _rows);  
 }
 
-void LiquidCrystal_I2C::begin(uint8_t cols, uint8_t lines, uint8_t dotsize) {
-    if (lines > 1) {
+void LiquidCrystal_I2C::begin(uint8_t cols, uint8_t rows, uint8_t dotsize) {
+    if (rows > 1) {
         _displayfunction |= LCD_2LINE;
     }
-    _numlines = lines;
+    _numlines = rows;
 
     // For some 1 line displays you can select a 10 pixel high font
-    if ((dotsize == 10) && (lines == 1)) {
+    if ((dotsize == 10) && (rows == 1)) {
         _displayfunction |= LCD_5x10DOTS;
     }
 
@@ -227,7 +227,7 @@ void LiquidCrystal_I2C::backlight(void) {
     expanderWrite(0);
 }
 
-/* Mid level commands, for sending data/cmds */
+/* Mid level commands, for sending command or data */
 
 inline void LiquidCrystal_I2C::command(uint8_t value) {
     send(value, 0);
@@ -264,8 +264,8 @@ void LiquidCrystal_I2C::pulseEnable(uint8_t _data) {
     delayMicroseconds(1); // Enable pulse must be >450ns
     
     expanderWrite(_data & ~En); // En low
-    delayMicroseconds(50); // Commands need > 37us to settle
-} 
+    delayMicroseconds(42); // Commands need > 37us to settle
+}
 
 // Alias functions
 void LiquidCrystal_I2C::cursor_on() {
