@@ -9,10 +9,10 @@ Like its counterpart the LiquidCrystal library, this library allows an Arduino (
 ### **Constructor**
 
 ```c++
-LiquidCrystal_I2C( uint8_t lcd_Addr, uint8_t lcd_cols, uint8_t lcd_rows, uint8_t lcd_sda = LCD_SDA, uint8_t lcd_scl = LCD_SCL )
+LiquidCrystal_I2C( uint8_t lcd_addr, uint8_t lcd_cols, uint8_t lcd_rows, uint8_t lcd_sda, uint8_t lcd_scl, uint8_t lcd_dots )
 ```
 
-The constructor with the I2C address, the dimensions of the LCD (columns and rows) and (optionally) the SDA and SCL pins.
+The constructor with the I2C address and the dimensions of the LCD (columns and rows). Optionally a big font (5x10 dots) and the SDA/SCL pins.
 
 ### **init()**
 
