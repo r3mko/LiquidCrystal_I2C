@@ -54,6 +54,8 @@ void LiquidCrystal_I2C::begin(uint8_t cols, uint8_t rows, uint8_t dotsize) {
     }
     _numlines = rows;
 
+    setRowOffsets(0x00, 0x40, 0x00 + cols, 0x40 + cols);
+
     // For some 1 line displays you can select a 10 pixel high font
     if ((dotsize != LCD_5x8DOTS) && (rows == 1)) {
         _displayfunction |= LCD_5x10DOTS;
@@ -106,9 +108,16 @@ void LiquidCrystal_I2C::begin(uint8_t cols, uint8_t rows, uint8_t dotsize) {
     home();  
 }
 
+void LiquidCrystal_I2C::setRowOffsets(int row0, int row1, int row2, int row3) {
+    _row_offsets[0] = row0;
+    _row_offsets[1] = row1;
+    _row_offsets[2] = row2;
+    _row_offsets[3] = row3;
+}
+
 /* High level commands, for the user! */
 
-void LiquidCrystal_I2C::clear(){
+void LiquidCrystal_I2C::clear() {
     command(LCD_CLEARDISPLAY); // Clear display, set cursor position to zero
     delayMicroseconds(2000); // This command takes a long time!
     if (_oled) {
@@ -116,17 +125,22 @@ void LiquidCrystal_I2C::clear(){
     }
 }
 
-void LiquidCrystal_I2C::home(){
+void LiquidCrystal_I2C::home() {
     command(LCD_RETURNHOME); // Set cursor position to zero
     delayMicroseconds(2000); // This command takes a long time!
 }
 
-void LiquidCrystal_I2C::setCursor(uint8_t col, uint8_t row){
-    int row_offsets[] = {0x00, 0x40, 0x14, 0x54};
-    if (row > _numlines) {
+void LiquidCrystal_I2C::setCursor(uint8_t col, uint8_t row) {
+    const size_t max_lines = sizeof(_row_offsets) / sizeof(*_row_offsets);
+
+    if (row >= max_lines) {
+        row = max_lines - 1; // we count rows starting with 0
+    }
+    if (row >= _numlines) {
         row = _numlines - 1; // We count rows starting with 0
     }
-    command(LCD_SETDDRAMADDR | (col + row_offsets[row]));
+
+    command(LCD_SETDDRAMADDR | (col + _row_offsets[row]));
 }
 
 // Turn the display on/off (quickly)
@@ -200,7 +214,7 @@ void LiquidCrystal_I2C::noAutoscroll(void) {
 void LiquidCrystal_I2C::createChar(uint8_t location, uint8_t charmap[]) {
     location &= 0x7; // We only have 8 locations 0-7
     command(LCD_SETCGRAMADDR | (location << 3));
-    for (int i=0; i<8; i++) {
+    for (int i = 0; i < 8; i++) {
         write(charmap[i]);
     }
 }
@@ -209,7 +223,7 @@ void LiquidCrystal_I2C::createChar(uint8_t location, uint8_t charmap[]) {
 void LiquidCrystal_I2C::createChar(uint8_t location, const char *charmap) {
     location &= 0x7; // We only have 8 locations 0-7
     command(LCD_SETCGRAMADDR | (location << 3));
-    for (int i=0; i<8; i++) {
+    for (int i = 0; i < 8; i++) {
         write(pgm_read_byte_near(charmap++));
     }
 }

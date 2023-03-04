@@ -61,6 +61,7 @@ public:
   void init();
   void oled_init();
   void begin(uint8_t cols, uint8_t rows, uint8_t dotsize = LCD_5x8DOTS );
+  void setRowOffsets(int row1, int row2, int row3, int row4);
   void clear();
   void home();
   void setCursor(uint8_t col, uint8_t row); 
@@ -122,6 +123,7 @@ private:
   uint8_t _numlines;
   uint8_t _displaycontrol;
   uint8_t _displaymode;
+  uint8_t _row_offsets[4];
 };
 
 #endif
