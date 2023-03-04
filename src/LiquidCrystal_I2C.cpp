@@ -1,7 +1,5 @@
 #include "LiquidCrystal_I2C.h"
 
-#define printIIC(args) Wire.write(args)
-
 // When the display powers up, it is configured as follows:
 //
 // 1. Display clear
@@ -21,7 +19,7 @@
 // so we can't assume that its in that state when a sketch starts
 // (and the LiquidCrystal constructor is called).
 
-LiquidCrystal_I2C::LiquidCrystal_I2C(uint8_t lcd_Addr,uint8_t lcd_cols, uint8_t lcd_rows, uint8_t lcd_sda, uint8_t lcd_scl) {
+LiquidCrystal_I2C::LiquidCrystal_I2C(uint8_t lcd_Addr, uint8_t lcd_cols, uint8_t lcd_rows, uint8_t lcd_sda, uint8_t lcd_scl) {
     _Addr = lcd_Addr;
     _cols = lcd_cols;
     _rows = lcd_rows;
@@ -57,7 +55,7 @@ void LiquidCrystal_I2C::begin(uint8_t cols, uint8_t rows, uint8_t dotsize) {
     _numlines = rows;
 
     // For some 1 line displays you can select a 10 pixel high font
-    if ((dotsize == 10) && (rows == 1)) {
+    if ((dotsize != LCD_5x8DOTS) && (rows == 1)) {
         _displayfunction |= LCD_5x10DOTS;
     }
 
@@ -255,7 +253,7 @@ void LiquidCrystal_I2C::write4bits(uint8_t value) {
 
 void LiquidCrystal_I2C::expanderWrite(uint8_t _data) {                                        
     Wire.beginTransmission(_Addr);
-    printIIC((int)(_data) | _backlightval);
+    Wire.write((int)(_data) | _backlightval);
     Wire.endTransmission();   
 }
 
@@ -294,12 +292,6 @@ void LiquidCrystal_I2C::setBacklight(uint8_t new_val) {
     } else {
         noBacklight(); // Turn backlight off
     }
-}
-
-void LiquidCrystal_I2C::printstr(const char c[]) {
-    // This function is not identical to the function used for "real" I2C displays
-    // it's here so the user sketch doesn't have to be changed 
-    print(c);
 }
 
 // Unsupported API functions
