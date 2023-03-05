@@ -86,26 +86,15 @@ public:
 
 /* Compatibility API function aliases */
 
+void display_on(); // Alias for display()
+void display_off(); // Alias for noDisplay()
 void cursor_on(); // Alias for cursor()
 void cursor_off(); // Alias for noCursor()
 void blink_on(); // Alias for blink()
 void blink_off(); // Alias for noBlink()
 void load_custom_character(uint8_t char_num, uint8_t *rows); // Alias for createChar()
 void setBacklight(uint8_t new_val); // Alias for backlight() and nobacklight()
-void printstr(const char c[]); // For backward compatibility
 
-/* Unsupported API functions (not implemented in this library) */
-
-void off();
-void on();
-void setDelay(int cmdDelay, int charDelay);
-uint8_t status();
-uint8_t keypad();
-uint8_t init_bargraph(uint8_t graphtype);
-void draw_horizontal_graph(uint8_t row, uint8_t column, uint8_t len,  uint8_t pixel_col_end);
-void draw_vertical_graph(uint8_t row, uint8_t column, uint8_t len,  uint8_t pixel_col_end);
-void setContrast(uint8_t new_val);
-	 
 private:
   void init_priv();
   void send(uint8_t value, uint8_t mode);
