@@ -78,11 +78,11 @@ void LiquidCrystal_I2C::begin(uint8_t cols, uint8_t rows, uint8_t dotsize) {
     // We start in 8bit mode
     // try to set to 4 bit mode
     write4bits(0x03 << 4);
-    delayMicroseconds(4200); // wait min 4.1ms
+    delayMicroseconds(4200); // Minimum wait 4.1ms
    
     // Second try
     write4bits(0x03 << 4);
-    delayMicroseconds(110); // wait min 100us
+    delayMicroseconds(110); // Minimum wait 100us
    
     // Third time's the charm!
     write4bits(0x03 << 4); 
@@ -105,7 +105,8 @@ void LiquidCrystal_I2C::begin(uint8_t cols, uint8_t rows, uint8_t dotsize) {
     
     // Set the entry mode
     command(LCD_ENTRYMODESET | _displaymode);
-    
+
+    // Zero cursor    
     home();  
 }
 
@@ -120,7 +121,7 @@ void LiquidCrystal_I2C::setRowOffsets(int row0, int row1, int row2, int row3) {
 
 void LiquidCrystal_I2C::clear() {
     command(LCD_CLEARDISPLAY); // Clear display, set cursor position to zero
-    delayMicroseconds(2000); // This command takes a long time!
+    delayMicroseconds(1600); // This command takes a long time! (1.52ms)
     if (_oled) {
         setCursor(0, 0);
     }
@@ -128,7 +129,7 @@ void LiquidCrystal_I2C::clear() {
 
 void LiquidCrystal_I2C::home() {
     command(LCD_RETURNHOME); // Set cursor position to zero
-    delayMicroseconds(2000); // This command takes a long time!
+    delayMicroseconds(1600); // This command takes a long time! (1.52ms)
 }
 
 void LiquidCrystal_I2C::setCursor(uint8_t col, uint8_t row) {
