@@ -29,7 +29,7 @@ void setup() {
   lcd.createChar(6, cross);
   lcd.createChar(7, retarrow);
 
-  lcd.home(); 
+  lcd.clear();
   lcd.print("Hello world...");
 
   lcd.setCursor(0, 1);
@@ -55,7 +55,7 @@ void displayKeyCodes() {
 
     // Print Characters
     lcd.setCursor(0, 1);
-    for (int j=0; j<16; j++) {
+    for (int j = 0; j < 16; j++) {
       lcd.printByte(i + j);
     }
     i += 16;
