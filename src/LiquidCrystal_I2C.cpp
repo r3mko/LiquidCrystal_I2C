@@ -41,8 +41,7 @@ void LiquidCrystal_I2C::oled_init() {
 void LiquidCrystal_I2C::init_priv() {
     if ((_sdaPin != LCD_SDA) && (_sclPin != LCD_SCL)) {
         Wire.begin(_sdaPin, _sclPin);
-    }
-    else {
+    } else {
         Wire.begin();
     }
     _displayfunction = LCD_4BITMODE | LCD_1LINE | LCD_5x8DOTS;
@@ -311,7 +310,7 @@ void LiquidCrystal_I2C::load_custom_character(uint8_t char_num, uint8_t *rows) {
 }
 
 void LiquidCrystal_I2C::setBacklight(uint8_t new_val) {
-    if(new_val) {
+    if (new_val) {
         backlight(); // Turn backlight on
     } else {
         noBacklight(); // Turn backlight off
